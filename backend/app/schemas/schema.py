@@ -1,0 +1,87 @@
+from pydantic import BaseModel
+from typing import Optional
+
+
+class HouseFeatures(BaseModel):
+    MSSubClass: int
+    MSZoning: str
+    LotFrontage: float
+    LotArea: int
+    Street: str
+    Alley: Optional[str]
+    LotShape: str
+    LandContour: str
+    Utilities: str
+    LotConfig: str
+    LandSlope: str
+    Neighborhood: str
+
+    Condition1: str
+    Condition2: str
+    BldgType: str
+    HouseStyle: str
+
+    OverallQual: int
+    OverallCond: int
+    YearBuilt: int
+    YearRemodAdd: int
+    RoofStyle: str
+    RoofMatl: str
+    Exterior1st: str
+    Exterior2nd: str
+    MasVnrType: Optional[str]
+    MasVnrArea: float
+    ExterQual: str
+    ExterCond: str
+    Foundation: str
+    
+    BsmtQual: Optional[str]
+    BsmtCond: Optional[str]
+    BsmtExposure: Optional[str]
+    BsmtFinType1: Optional[str]
+    BsmtFinSF1: float
+    BsmtFinType2: Optional[str]
+    BsmtFinSF2: float
+    BsmtUnfSF: float
+    TotalBsmtSF: float
+    Heating: str
+    HeatingQC: str
+    CentralAir: str
+    Electrical: Optional[str]
+    FirstFlrSF: float
+    SecondFlrSF: float
+    LowQualFinSF: float
+    GrLivArea: float
+    BsmtFullBath: int
+    BsmtHalfBath: int
+    FullBath: int
+    HalfBath: int
+    BedroomAbvGr: int
+    KitchenAbvGr: int
+    KitchenQual: str
+    TotRmsAbvGrd: int
+    Functional: str
+    Fireplaces: int
+    FireplaceQu: Optional[str]
+    GarageType: Optional[str]
+    GarageYrBlt: Optional[float]
+    GarageFinish: Optional[str]
+    GarageCars: int
+    GarageArea: float
+    GarageQual: Optional[str]
+    GarageCond: Optional[str]
+    PavedDrive: str
+    WoodDeckSF: float
+    OpenPorchSF: float
+    EnclosedPorch: float
+    ThreeSsnPorch: float
+    ScreenPorch: float
+    PoolArea: float
+    PoolQC: Optional[str]
+    Fence: Optional[str]
+    MiscFeature: Optional[str]
+    MiscVal: float
+    MoSold: int
+    YrSold: int
+    SaleType: str
+    SaleCondition: str
