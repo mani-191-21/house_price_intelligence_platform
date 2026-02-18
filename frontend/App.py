@@ -175,37 +175,6 @@ for col, (label, value, delta) in zip(cols, metrics):
 
 st.markdown("---")
 
-# ------------------------------------------------------------
-# NAVIGATION
-# ------------------------------------------------------------
-st.subheader("Explore Modules")
-
-nav_items = [
-    ("🔮 Price Prediction", "Prediction"),
-    ("📈 Price Trends", "Price Trends"),
-    ("🗺️ Neighborhood", "Neighborhood"),
-    ("🏠 Key Features", "Features"),
-    ("⭐ Quality Rating", "Quality"),
-    ("💧 Utilities", "Utilities"),
-    ("🗺️ Geographic Maps", "Maps")
-]
-
-nav_cols = st.columns(4)
-
-for i, (title, page) in enumerate(nav_items):
-    with nav_cols[i % 4]:
-        st.markdown(f"""
-        <div class="card">
-            <div class="card-icon">{title.split()[0]}</div>
-            <div class="card-title">{title.split(' ',1)[1]}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        if st.button("Open →", key=page):
-            st.switch_page(f"pages/{page}.py")
-
-st.markdown("---")
-
 
 # ------------------------------------------------------------
 # EXECUTIVE POPUP
