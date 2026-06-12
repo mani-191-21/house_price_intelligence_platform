@@ -9,7 +9,7 @@ st.set_page_config(page_title="Price Prediction", page_icon="🔮", layout="wide
 
 # Initialize API base
 if 'api_base' not in st.session_state:
-    st.session_state.api_base = "http://localhost:8000/api"
+    st.session_state.api_base = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
 
 API_BASE = st.session_state.api_base
 
@@ -323,7 +323,7 @@ payload = {
 # PREDICT BUTTON
 # -----------------------------
 if st.button("🚀 Predict Sale Price"):
-    res = requests.post("http://localhost:8000/api/predict", json=payload)
+    res = requests.post("{BACKEND_URL}/predict", json=payload)
     if res.status_code == 200:
         price = res.json()["predicted_price"]
         st.success(f"🏷️ Estimated Sale Price: $ {price:,.0f}")

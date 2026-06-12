@@ -25,7 +25,7 @@ pio.templates.default = "dark_navy"
 # Initialize API base
 # =========================================================
 if 'api_base' not in st.session_state:
-    st.session_state.api_base = "http://localhost:8000/api"
+    st.session_state.api_base = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
 
 API_BASE = st.session_state.api_base
 

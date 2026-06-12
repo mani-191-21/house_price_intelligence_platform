@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: house-price-backend
+    runtime: python311
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: BACKEND_URL
+        fromService:
+          name: house-price-backend
+          property: url
+    healthCheckPath: /api/health
+    healthCheckInterval: 30
+    maxShutdownDelay: 30
+    preDeployCommand: cd backend && pip install -r requirements.txt
+
+  - type: web
+    name: house-price-frontend
+    runtime: python311
+    buildCommand: cd frontend && pip install -r requirements.txt
+    startCommand: cd frontend && streamlit run App.py --server.port=$PORT --server.address=0.0.0.0
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: STREAMLIT_SERVER_PORT
+        value: $PORT
+      - key: STREAMLIT_SERVER_ADDRESS
+        value: 0.0.0.0
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: "true"
+      - key: BACKEND_URL
+        fromService:
+          name: house-price-backend
+          property: url
+    depends:
+      - name: house-price-backend
+        type: service

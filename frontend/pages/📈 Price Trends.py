@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 
-API_BASE = "http://localhost:8000/api"
+import os; API_BASE = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
 
 # ---------------------------------------------------
 # Page Config

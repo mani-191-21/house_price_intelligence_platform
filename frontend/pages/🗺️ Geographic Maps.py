@@ -96,9 +96,9 @@ st.markdown("""
 # API SETUP
 # =========================================================
 if 'api_base' not in st.session_state:
-    st.session_state.api_base = "http://localhost:8000/api"
+    st.session_state.api_base = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
 
-API_URL = "http://localhost:8000/api/map"
+API_URL = "{BACKEND_URL}/map"
 
 API_BASE = st.session_state.api_base
 

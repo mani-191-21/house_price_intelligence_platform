@@ -3,6 +3,15 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 from datetime import datetime
+import os
+
+# Get backend URL from environment or use localhost
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+API_BASE = f"{BACKEND_URL}/api"
+
+# Store in session state for access by other pages
+if 'api_base' not in st.session_state:
+    st.session_state.api_base = API_BASE
 
 # ------------------------------------------------------------
 # Page Config
