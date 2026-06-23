@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 
-import os; API_BASE = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
+import os; API_BASE = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000").rstrip("/") + "/api")
 
 # ---------------------------------------------------
 # PAGE CONFIG
@@ -116,6 +116,7 @@ st.markdown("""
 # ---------------------------------------------------
 # SAFE API LOADER
 # ---------------------------------------------------
+@st.cache_data(ttl=600, show_spinner=False)
 def load_api(endpoint):
     try:
         r = requests.get(f"{API_BASE}{endpoint}", timeout=8)
@@ -163,10 +164,16 @@ heating_qc = load_api("/utilities/heating-quality")
 electrical = load_api("/utilities/electrical")
 garage_age = load_api("/utilities/garage-age")
 
-try:
-    utilities_summary = requests.get(f"{API_BASE}/utilities/summary").json()
-except:
-    utilities_summary = {}
+@st.cache_data(ttl=600, show_spinner=False)
+def load_utilities_summary():
+    try:
+        response = requests.get(f"{API_BASE}/utilities/summary", timeout=8)
+        response.raise_for_status()
+        return response.json()
+    except:
+        return {}
+
+utilities_summary = load_utilities_summary()
 
 # Apply Price Filter
 def filter_price(df):

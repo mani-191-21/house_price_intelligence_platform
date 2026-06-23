@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 import pandas as pd
 import os
+from functools import lru_cache
 
 router = APIRouter()
 
@@ -8,6 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.pa
 
 DATA_PATH = os.path.join(BASE_DIR, "data", "house_prices1.csv")
 
+@lru_cache(maxsize=1)
 def load_data():
     if not os.path.exists(DATA_PATH):
         raise FileNotFoundError(f"CSV file not found: {DATA_PATH}")

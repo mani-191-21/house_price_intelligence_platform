@@ -5,3 +5,7 @@ pandas
 numpy
 slowapi
 cachetools
+joblib
+folium
+scikit-learn==1.6.1
+catboost

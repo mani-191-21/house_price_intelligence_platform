@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 
-import os; API_BASE = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
+import os; API_BASE = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000").rstrip("/") + "/api")
 
 # ---------------------------------------------------
 # Page Config
@@ -148,6 +148,7 @@ with st.sidebar:
 # ---------------------------------------------------
 # API Loader
 # ---------------------------------------------------
+@st.cache_data(ttl=600, show_spinner=False)
 def load_api_data(endpoint):
     try:
         res = requests.get(f"{API_BASE}{endpoint}", timeout=8)

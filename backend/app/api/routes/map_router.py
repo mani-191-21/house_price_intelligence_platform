@@ -1,4 +1,5 @@
 import os
+from functools import lru_cache
 import pandas as pd
 import folium
 from folium.plugins import HeatMap, MarkerCluster
@@ -53,6 +54,7 @@ NEIGH_COORDS = {
 # LOAD DATA
 # ===========================
 
+@lru_cache(maxsize=1)
 def load_data():
     if not os.path.exists(DATA_PATH):
         raise FileNotFoundError("CSV file not found")
@@ -181,3 +183,27 @@ def generate_map():
     folium.LayerControl(collapsed=False).add_to(base_map)
 
     return base_map._repr_html_()
+@router.get("/maps/geographic")
+def geographic_data():
+    df = load_data()
+    agg = df.groupby("Neighborhood Name").agg(
+        AvgPrice=("House Sale Price", "mean"),
+        Count=("House Sale Price", "count")
+    ).reset_index()
+
+    neighborhoods = []
+    for _, row in agg.iterrows():
+        name = row["Neighborhood Name"]
+        if name not in NEIGH_COORDS:
+            continue
+
+        lat, lon = NEIGH_COORDS[name]
+        neighborhoods.append({
+            "Neighborhood": name,
+            "AvgPrice": float(row["AvgPrice"]),
+            "Count": int(row["Count"]),
+            "Lat": lat,
+            "Lon": lon
+        })
+
+    return {"neighborhood_distribution": neighborhoods}

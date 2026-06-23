@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 import numpy as np
+import os
 
 st.set_page_config(page_title="Geographic Maps", page_icon="🗺️", layout="wide")
 
@@ -96,11 +97,10 @@ st.markdown("""
 # API SETUP
 # =========================================================
 if 'api_base' not in st.session_state:
-    st.session_state.api_base = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
-
-API_URL = "{BACKEND_URL}/map"
+    st.session_state.api_base = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000").rstrip("/") + "/api")
 
 API_BASE = st.session_state.api_base
+API_URL = f"{API_BASE}/map"
 
 @st.cache_data(ttl=600)
 def load_map_data():
@@ -400,7 +400,7 @@ with tab3:
     st.markdown("### 🌍 Interactive Folium Map")
 
     try:
-        response = requests.get(API_URL)
+        response = requests.get(API_URL, timeout=10)
 
         if response.status_code == 200:
             map_html = response.text

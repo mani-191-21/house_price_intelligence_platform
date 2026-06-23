@@ -4,12 +4,13 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 from typing import Optional
+import os
 
 st.set_page_config(page_title="Price Prediction", page_icon="🔮", layout="wide")
 
 # Initialize API base
 if 'api_base' not in st.session_state:
-    st.session_state.api_base = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000") + "/api")
+    st.session_state.api_base = st.session_state.get("api_base", os.getenv("BACKEND_URL", "http://localhost:8000").rstrip("/") + "/api")
 
 API_BASE = st.session_state.api_base
 
@@ -92,6 +93,61 @@ p, span, div {
 
 .stButton>button:hover {
     box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
+}
+
+.prediction-result {
+    width: 100%;
+    margin: 1.75rem 0 0.5rem 0;
+    padding: 1.5rem 1.75rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #07111f 0%, #0f172a 48%, #123524 100%);
+    border: 1px solid rgba(34, 197, 94, 0.65);
+    border-left: 8px solid #22c55e;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45), 0 0 28px rgba(34, 197, 94, 0.18);
+}
+
+.prediction-result-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.85rem;
+}
+
+.prediction-result-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.42rem 0.8rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #a7f3d0 0%, #22c55e 100%);
+    color: #020617 !important;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    box-shadow: inset 0 -2px 0 rgba(2, 6, 23, 0.22);
+}
+
+.prediction-result-note {
+    color: #94a3b8 !important;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.prediction-result-price {
+    color: #f8fafc !important;
+    font-size: 3rem;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: 0;
+}
+
+.prediction-result-subtext {
+    margin-top: 0.65rem;
+    color: #cbd5e1 !important;
+    font-size: 1rem;
+    font-weight: 600;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -323,12 +379,19 @@ payload = {
 # PREDICT BUTTON
 # -----------------------------
 if st.button("🚀 Predict Sale Price"):
-    res = requests.post("{BACKEND_URL}/predict", json=payload)
-    if res.status_code == 200:
-        price = res.json()["predicted_price"]
-        st.success(f"🏷️ Estimated Sale Price: $ {price:,.0f}")
-    else:
-        st.error(res.text)
+    result = predict_house_price(payload)
+    if result and "predicted_price" in result:
+        price = result["predicted_price"]
+        st.markdown(f"""
+        <div class="prediction-result">
+            <div class="prediction-result-topline">
+                <div class="prediction-result-label">Estimated Cost</div>
+                <div class="prediction-result-note">AI market valuation</div>
+            </div>
+            <div class="prediction-result-price">$ {price:,.0f}</div>
+            <div class="prediction-result-subtext">Projected sale value based on the selected property features.</div>
+        </div>
+        """, unsafe_allow_html=True)
 
 # Sidebar tips
 with st.sidebar:

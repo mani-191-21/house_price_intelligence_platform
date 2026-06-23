@@ -3,12 +3,15 @@ import os
 import pandas as pd
 import numpy as np
 
-MODEL_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "models",
-    "house_price_full_pipeline.pkl"
+SERVICE_DIR = os.path.dirname(__file__)
+BACKEND_MODEL_PATH = os.path.abspath(
+    os.path.join(SERVICE_DIR, "..", "models", "house_price_full_pipeline.pkl")
 )
+ROOT_MODEL_PATH = os.path.abspath(
+    os.path.join(SERVICE_DIR, "..", "..", "..", "model", "house_price_full_pipeline.pkl")
+)
+
+MODEL_PATH = BACKEND_MODEL_PATH if os.path.exists(BACKEND_MODEL_PATH) else ROOT_MODEL_PATH
 
 loaded_object = joblib.load(MODEL_PATH)
 
