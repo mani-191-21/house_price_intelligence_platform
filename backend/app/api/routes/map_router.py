@@ -84,7 +84,7 @@ def generate_map():
     # IMPORTANT FIX 👇
     agg = df.groupby("Neighborhood Name").mean(numeric_only=True).reset_index()
 
-    base_map = folium.Map(location=[42.03, -93.62], zoom_start=12)
+    base_map = folium.Map(location=[42.03, -93.62], zoom_start=12, tiles="CartoDB dark_matter")
 
     # =====================
     # FEATURE GROUPS
