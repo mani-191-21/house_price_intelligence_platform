@@ -143,6 +143,31 @@ section[data-testid="stSidebar"] * {
     border-radius: 12px;
     padding: 15px;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .green-hero {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    .green-title {
+        font-size: 2rem !important;
+    }
+    .green-subtitle {
+        font-size: 0.95rem !important;
+    }
+    .popup-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    .enterprise-popup {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    .popup-title {
+        font-size: 1.5rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 

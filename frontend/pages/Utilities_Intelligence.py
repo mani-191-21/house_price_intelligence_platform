@@ -98,6 +98,34 @@ p, span, div {
 .stButton>button:hover {
     box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
 }
+
+.kpi-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #f1f5f9;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .modern-orange-hero {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    .modern-orange-title {
+        font-size: 2rem !important;
+    }
+    .modern-orange-subtitle {
+        font-size: 0.95rem !important;
+    }
+    .kpi-card {
+        padding: 1rem !important;
+        margin-bottom: 0.5rem;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 

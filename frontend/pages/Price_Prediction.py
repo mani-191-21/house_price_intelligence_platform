@@ -149,6 +149,26 @@ p, span, div {
     font-size: 1rem;
     font-weight: 600;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .lavender-hero {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    .lavender-title {
+        font-size: 2rem !important;
+    }
+    .lavender-subtitle {
+        font-size: 0.95rem !important;
+    }
+    .prediction-result-price {
+        font-size: 2rem !important;
+    }
+    .prediction-result {
+        padding: 1rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -183,7 +203,9 @@ def predict_house_price(features_dict):
         return None
     
 # Load dataset for dropdown values & ranges
-df = pd.read_csv("../data/house_prices1.csv")
+PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH = os.path.join(PARENT_DIR, "..", "data", "house_prices1.csv")
+df = pd.read_csv(DATA_PATH)
 
 # Main prediction form
 # -----------------------------

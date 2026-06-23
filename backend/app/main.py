@@ -1,7 +1,17 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import predict, health, location_router, feature_routes, quality_router, utilities_router, price_trends_router, map_router
 
 app = FastAPI(title="House Price Prediction API")
+
+# Add CORS Middleware to enable frontend calls from other origins in production
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(predict.router, prefix="/api")
 app.include_router(health.router, prefix="/api")

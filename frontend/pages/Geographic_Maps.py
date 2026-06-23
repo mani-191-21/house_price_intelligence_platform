@@ -78,6 +78,19 @@ p, span, div {
     background-color: #0f172a !important;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .maps-header {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    .maps-header h1 {
+        font-size: 1.8rem !important;
+    }
+    .maps-header p {
+        font-size: 0.95rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 

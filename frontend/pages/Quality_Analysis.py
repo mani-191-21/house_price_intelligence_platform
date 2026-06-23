@@ -98,6 +98,20 @@ p, span, div {
 .stButton>button:hover {
     box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .red-pink-hero {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    .red-pink-title {
+        font-size: 2rem !important;
+    }
+    .red-pink-subtitle {
+        font-size: 0.95rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 

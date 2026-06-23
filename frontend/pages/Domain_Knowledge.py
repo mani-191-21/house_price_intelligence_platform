@@ -73,6 +73,26 @@ section[data-testid="stSidebar"] {
     font-size: 0.95rem;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .hero {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    .hero-title {
+        font-size: 1.8rem !important;
+    }
+    .hero-sub {
+        font-size: 0.95rem !important;
+    }
+    .knowledge-card {
+        padding: 1rem !important;
+        border-radius: 10px !important;
+    }
+    .knowledge-title {
+        font-size: 1.1rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
